@@ -30,7 +30,8 @@ async def sendMessage(message, userMessage):
         print(e)
 
 def runBot():
-    TOKEN = 'MTA0MzczOTc1NzI4MjMzNjgyMA.G5dzn3.gIyYvizNAwyIpjXaLb-A97hJNSkS7sJVDeEd0I'
+    # YOUR TOKEN HERE
+    TOKEN = ''
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
