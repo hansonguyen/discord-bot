@@ -1,4 +1,5 @@
 import discord
+import secrets
 from api import *
 
 baseURL = 'https://pokeapi.co/api/v2/'
@@ -17,8 +18,11 @@ def getResponse(message: str) -> str:
     if message == '!random':
         return 'Random Pokemon: ' + getRandomPokemon(pokemon)
 
+    if message == '!about':
+        return 'PokeBot was developed by Hanson Nguyen using Python and the PokeAPI.\nTo learn more about the creator, visit https://hansonguyen.github.io/\nTo see source code, visit https://github.com/hansonguyen/discord-bot\nTo learn more about PokeAPI, visit https://pokeapi.co/'
+
     if message == '!help':
-        return '`PokeBot\n"hello": Greeting from Bot\n"!random": Get random Pokemon from Generation 1`'
+        return 'PokeBot v1.0\n`"hello"`: Greeting from Bot\n`"!random"`: Get random Pokemon from Generation 1\n`"!about"`: Learn about the bot'
 
     return 'I didn\'t understand what you said. Use "!help" for a list of commands.'
 
@@ -30,8 +34,6 @@ async def sendMessage(message, userMessage):
         print(e)
 
 def runBot():
-    # YOUR TOKEN HERE
-    TOKEN = ''
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
@@ -52,4 +54,5 @@ def runBot():
         print(f'{username} said: "{userMessage}" in #{channel}')
 
         await sendMessage(message, userMessage)
-    client.run(TOKEN)
+    # Need token to run yourself
+    client.run(secrets.TOKEN)
