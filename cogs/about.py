@@ -12,7 +12,7 @@ class About(commands.Cog):
 
     @commands.command(
         help='Prints information about the bot development',
-        brief='Bot info',
+        brief='Info about Pokébot',
     )
     async def about(self, ctx):
         await ctx.channel.send('PokéBot was developed by Hanson Nguyen using Python and the PokeAPI.\nTo learn more about the creator, visit https://hansonguyen.github.io/\nTo see source code, visit https://github.com/hansonguyen/discord-bot\nTo learn more about PokéAPI, visit https://pokeapi.co/')

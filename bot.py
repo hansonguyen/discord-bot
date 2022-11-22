@@ -3,7 +3,11 @@ import os
 from discord.ext import commands
 from pretty_help import PrettyHelp
 import asyncio
-import secrets
+from dotenv import load_dotenv
+
+# Discord Token
+load_dotenv()
+TOKEN = os.getenv("DICORD_TOKEN")
 
 # Create new bot
 intents = discord.Intents.default()
@@ -21,9 +25,9 @@ async def load():
 async def on_ready():
     print(f'{bot.user} is now online!')
 
-# Executes bot with token. Need to define before use
+# Executes bot with token
 async def main():
     await load()
-    await bot.start(secrets.TOKEN)
+    await bot.start(TOKEN)
 
 asyncio.run(main())

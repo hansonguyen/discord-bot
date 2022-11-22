@@ -105,3 +105,37 @@ def getRegionInfo(region):
     for location in regionData['locations']:
         info['locations'].append(' '.join(elem.capitalize() for elem in location['name'].split('-')))
     return info
+
+def getTypeInfo(type):
+    info = requests.get(f'https://pokeapi.co/api/v2/type/{type.lower()}/').json()
+    typeInfo = {
+        'strengths': [],
+        'weaknesses': [],
+        'no_effect': [],
+        'pokemon': [],
+        'moves': [],
+        'class': 'None' if info['move_damage_class'] == None else info['move_damage_class']['name'].capitalize()
+    }
+    for item in info['damage_relations']['double_damage_to']:
+        typeInfo['strengths'].append(item['name'].capitalize())
+    for item in info['damage_relations']['double_damage_from']:
+        typeInfo['weaknesses'].append(item['name'].capitalize())
+    for item in info['damage_relations']['no_damage_to']:
+        typeInfo['no_effect'].append(item['name'].capitalize())
+    for i in range(1, 4):
+        randNum = random.randint(0, len(info['pokemon']) - 1)
+        pokemon = info['pokemon'][randNum]['pokemon']['name'].capitalize()
+        if '-' in pokemon:
+            pokemon = pokemon.split('-')
+            pokemon = [mon.capitalize() for mon in pokemon]
+            pokemon = ' '.join(pokemon)
+        typeInfo['pokemon'].append(pokemon)
+    for i in range(1, 4):
+        randNum = random.randint(0, len(info['moves']) - 1)
+        moveName = info['moves'][randNum]['name'].capitalize()
+        if '-' in moveName:
+            moveName = moveName.split('-')
+            moveName = [move.capitalize() for move in moveName]
+            moveName = ' '.join(moveName)
+        typeInfo['moves'].append(moveName)
+    return typeInfo
